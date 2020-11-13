@@ -1,3 +1,17 @@
 .App {
   text-align: center;
 }
+.btn_1{
+  padding: 10px;
+  font-size: 15px;
+  margin: 5px;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 2px #eee;
+}
+.btn_1:hover{
+  background: #cccc
+}
+.btn_1.active{
+  border: 1px solid #ccc;
+}

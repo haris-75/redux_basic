@@ -4,28 +4,6 @@ import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
 class Counter extends Component {
-    state = {
-        counter: 5
-    }
-
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-            default:
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-        }
-    }
 
     render () {
         return (
@@ -33,8 +11,30 @@ class Counter extends Component {
                 <CounterOutput value={this.props.ctr} />
                 <CounterControl label="Increment" clicked={this.props.onIncCounter} />
                 <CounterControl label="Decrement" clicked={this.props.onDecCounter} /> 
-                <CounterControl label="Add 5" clicked={this.props.onAdd5Counter} />
-                <CounterControl label="Subtract 5" clicked={this.props.onSub5Counter} />
+                <CounterControl label="Add 13" clicked={this.props.onAdd5Counter} />
+                <CounterControl label="Subtract 17" clicked={this.props.onSub5Counter} />
+
+                <hr/>
+                <button
+                    className="btn_1"
+                    onClick={this.props.onStoreResult}
+                    >
+                        Submit Counter
+                </button>
+
+                <ul>
+                    {this.props.storeResult.map(strResult => {
+                        return (
+                        <li 
+                            key = {strResult.id} 
+                            onClick = {this.props.onDeleteResult}>
+                                {strResult.value}
+                                {console.log(strResult.id)}
+                        </li>
+                        );
+                    })}
+                </ul>
+
             </div>
         );
     }
@@ -43,15 +43,18 @@ class Counter extends Component {
 const mapStateToProps = state => {
     return {
         ctr: state.counter,
+        storeResult: state.result,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncCounter: () => dispatch({type: 'INCREMENT'}),
-        onDecCounter: () => dispatch({type: 'DECREMENT'}),
-        onAdd5Counter: () => dispatch({type: 'ADD5'}),
-        onSub5Counter: () => dispatch({type: 'SUB5'})
+        onIncCounter: () => dispatch({type: 'INCREMENT', value: 9}),
+        onDecCounter: () => dispatch({type: 'DECREMENT', value: 6}),
+        onAdd5Counter: () => dispatch({type: 'ADD13', value: 13}),
+        onSub5Counter: () => dispatch({type: 'SUB17', value: 17}),
+        onStoreResult: () => dispatch({type: 'STORERESULT'}),
+        onDeleteResult: () => dispatch({type: 'DELETERESULT'})
     };
 };
 
